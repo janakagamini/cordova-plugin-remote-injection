@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.util.Base64;
+import android.view.WindowManager;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebViewEngine;
@@ -309,7 +310,11 @@ public class RemoteInjectionPlugin extends CordovaPlugin {
                                     }
                                 });
                         AlertDialog dialog = UserPromptTask.this.alertDialog = builder.create();
-                        dialog.show();
+                        try {
+                            dialog.show();
+                        } catch (WindowManager.BadTokenException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             } else {
